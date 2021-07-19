@@ -21,10 +21,10 @@
   </h2>
   <div class="row d-flex justify-content-center my-2">
     {#each petShops as shop}
-      <div class="col col-md-3 card m-2">
+      <div class="col col-10 col-sm-4 col-lg-3 card m-2">
         <a href={`#${shop.name}`}>
           <div class="card-header h5 text-capitalize">{shop.name.toLowerCase()}</div>
-          <div class="card-body">
+          <div class="card-body text-left mx-auto">
             <p class="card-text">
               <i
                 class="fas fa-map-marker-alt bg-secondary-100 p-1 rounded mr-1"
@@ -51,10 +51,10 @@
   </h2> 
   <div class="row d-flex justify-content-center">
     {#each vetClinics as clinic}
-      <div class="col col-md-3 card m-2">
+      <div class="col col-2 col-md-3 card m-2">
         <a href={`#${clinic.name}`}>
           <div class="card-header h5 text-capitalize">{clinic.name.toLowerCase()}</div>
-          <div class="card-body">
+          <div class="card-body text-left mx-auto">
             <p class="card-text">
               <i
                 class="fas fa-map-marker-alt bg-secondary-100 p-1 rounded mr-1"
