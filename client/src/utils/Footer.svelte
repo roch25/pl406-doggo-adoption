@@ -1,5 +1,6 @@
 <script>
   import { Link } from "svelte-routing";
+  import { app, socials, tags } from "../stores/app"
 </script>
 
 <footer class="py-4">
@@ -7,86 +8,46 @@
     <div class="row">
       <div class="col-md-6 item text mb-2">
         <img src="images/icons/logo-w.png" alt="logo" class="w-25" />
-        <h3 class="font-weight-bold container ">Doggo</h3>
-        <p class="mb-0">Adopt. Foster. Care.</p>
-        <p class="mb-0">The goodest girls and boys.</p>
+        <h3 class="font-weight-bold container ">{ app.name }</h3>
+        <p class="mb-0"> {app.sub} </p>
+        <p class="mb-0"> {app.tag} </p>
       </div>
       <div class="col-sm-6 col-md-3 item contact">
         <address class="col-sm-12">
-          <h4 class="font-weight-bold">Address</h4>
-          <small class="d-block">Goodest place</small>
-          <small class="d-block">Panaji, Goa - 403001</small>
+          <h5 class="font-weight-bold h5">Address</h5>
+          <small class="d-block">{app.address.name}</small>
+          <small class="d-block">{app.address.place}</small>
         </address>
         <div class="col-sm-12">
-          <h4 class="font-weight-bold">Contact</h4>
+          <h5 class="font-weight-bold h5">Contact<h5>
           <ul class="px-0 list-unstyled">
             <li class="mb-1">
               <span><i class="fa fa-envelope mr-1" />
-                <a href="mailto:contact@doggo.com">contact@doggo.com</a>
+                <a href={`mailto:${app.contact.email}`}>{app.contact.email}</a>
               </span>
             </li>
             <li class="mb-1">
               <span><i class="fas fa-phone-alt mr-1" />
-                <a href="tel:+918322424919">+91 832 2424 919</a></span>
+                <a href={`tel:${app.contact.phone}`}>{app.contact.phone}</a></span>
             </li>
           </ul>
         </div>
       </div>
-      <div class="col-sm-6 col-md-3 item">
-        <h4 class="font-weight-bold">Tags</h4>
-        <ul class="widget px-0 mt-2">
-          <li class="d-inline">
-            <Link class="d-inline px-0" to="adopt">
-              <a class="p-2 d-inline-block mb-1 rounded text-decoration-none" href="/adopt">Adopt</a>
-            </Link>
-          </li>
-          <li class="d-inline">
-            <Link class="px-0" to="foster">
-              <a class="p-2 d-inline-block mb-1 rounded text-decoration-none" href="">Foster</a >
-            </Link>
-          </li>
-          <li class="d-inline">
-            <Link class="px-0" to="food">
-              <a class="p-2 d-inline-block mb-1 rounded text-decoration-none" href="">Food</a>
-            </Link
-            >
-          </li>
-          <li class="d-inline">
-            <Link class="px-0" to="vaccination">
-              <a class="p-2 d-inline-block mb-1 rounded text-decoration-none" href="">Vet</a>
-            </Link>
-          </li>
-          <li class="d-inline">
-            <Link class=" px-0" to="volunteer">
-              <a class="p-2 d-inline-block mb-1 rounded text-decoration-none" href="">Volunteer</a>
-            </Link>
-          </li>
-          <li class="d-inline">
-            <Link class="px-0" to="events">
-              <a class="p-2 d-inline-block mb-1 rounded text-decoration-none" href="">Event</a>
-            </Link>
-          </li>
-          <li class="d-inline">
-            <Link class="px-0" to="">
-              <a class="p-2 d-inline-block mb-1 rounded text-decoration-none" href="">Help</a>
-            </Link>
-          </li>
-        </ul>
+      <div class="col-sm-6 col-md-3 item widget">
+        <h5 class="font-weight-bold h5">Tags</h5>      
+        {#each tags as tag}
+        <Link class="d-inline px-0" to={tag}>
+          <small class="p-2 d-inline-block mb-1 rounded text-decoration-none text-capitalize text-white">{tag}</small>
+        </Link>        
+        {/each}
       </div>
 
-      <div class="col item social pt-3 mt-2">
-        <a href="#" class="rounded-circle d-inline-block mr-1">
-          <i class="fab fa-facebook-f" />
-        </a>
-        <a href="#" class="rounded-circle d-inline-block mr-1">
-          <i class="fab fa-twitter" />
-        </a>
-        <a href="#" class="rounded-circle d-inline-block mr-1">
-          <i class="fab fa-instagram" />
-        </a>
-        <a href="#" class="rounded-circle d-inline-block mr-1">
-          <i class="fab fa-google" />
-        </a>
+      <div class="col item social pt-3 mt-2 border-top border-secondary">
+        {#each socials as social}
+          <a href={social.link} class="rounded-circle d-inline-block mr-1 text-white shadow">
+            <i class={social.icon} />
+          </a>
+        {/each}
       </div>
     </div>
     <small class="mt-2">Dog Adoption and Care · 2021</small>
@@ -94,9 +55,6 @@
 </footer>
 
 <style>
-  footer h4 {
-    font-size: 16px;
-  }
 
   footer ul a {
     font-size: 14px;
@@ -108,13 +66,13 @@
     opacity: 0.8;
   }
 
-  .widget a {
+  .widget small {
     border: 1px solid rgb(116, 116, 116);
     color: #fff0f9;
     opacity: 0.6;
   }
 
-  .widget a:hover {
+  .widget small:hover {
     border: 1px solid rgb(156, 156, 156);
     opacity: 0.9;
   }
@@ -123,21 +81,15 @@
     font-size: smaller;
   }
 
-  footer .item.social {
-    border-top: 1px solid #3e3b3d;
-  }
-
   footer .item.social > a {
     width: 35px;
     height: 35px;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
-    opacity: 0.75;
-    color: rgb(255, 238, 249);
     line-height: 35px;
+    background: rgba(255, 255, 255, 0.05);
   }
 
   footer .item.social > a:hover {
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.1);
   }
 
   @media (max-width: 767px) {
