@@ -1,12 +1,19 @@
 
-# Stage 1: Build Spring Boot application
+# Stage 1: Build Spring Boot + Svelte application
 FROM maven:3.9-eclipse-temurin-11 AS build
 
 WORKDIR /app
 
+# Copy Maven configuration
 COPY pom.xml .
+
+# Copy Spring Boot backend
 COPY src ./src
 
+# Copy Svelte frontend
+COPY client ./client
+
+# Build application
 RUN mvn -B clean package -DskipTests
 
 # Stage 2: Run Spring Boot application
